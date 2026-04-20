@@ -73,7 +73,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Right column: recent transactions (dark panel like Swift Cash) */}
+        {/* Right column: recent transactions (dark panel like Trust Cash) */}
         <div className="lg:col-span-2 surface-dark rounded-3xl p-5 sm:p-6 shadow-elevated min-h-[400px]">
           <div className="flex items-center justify-between mb-4">
             <div>

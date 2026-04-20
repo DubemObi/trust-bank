@@ -52,8 +52,8 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-6">
       <form onSubmit={onSubmit} className="w-full max-w-md space-y-5 animate-fade-in">
         <div className="flex items-center gap-2 mb-2">
-          <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">S</div>
-          <span className="font-bold">Swift Cash</span>
+          <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">T</div>
+          <span className="font-bold">Trust Cash</span>
         </div>
         <div>
           <h1 className="text-3xl font-bold">Create your account</h1>

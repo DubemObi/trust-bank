@@ -36,20 +36,20 @@ const Login = () => {
       <div className="hidden lg:flex surface-dark p-12 flex-col justify-between">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">S</div>
-          <span className="font-bold text-lg text-white">Swift Cash</span>
+          <span className="font-bold text-lg text-white">Trust Cash</span>
         </div>
         <div className="max-w-md">
           <h2 className="text-4xl font-bold text-white leading-tight mb-3">Banking made effortless.</h2>
           <p className="text-white/70">Manage accounts, send money, request cards and apply for loans — all in one place.</p>
         </div>
-        <p className="text-white/40 text-sm">© Swift Cash</p>
+        <p className="text-white/40 text-sm">© Trust Cash</p>
       </div>
 
       <div className="flex items-center justify-center p-6 sm:p-12">
         <form onSubmit={onSubmit} className="w-full max-w-sm space-y-5 animate-fade-in">
           <div className="lg:hidden flex items-center gap-2 mb-4">
-            <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">S</div>
-            <span className="font-bold">Swift Cash</span>
+            <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">T</div>
+            <span className="font-bold">Trust Cash</span>
           </div>
           <div>
             <h1 className="text-3xl font-bold">Welcome back</h1>
@@ -68,7 +68,7 @@ const Login = () => {
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sign in"}
           </Button>
           <p className="text-sm text-center text-muted-foreground">
-            New to Swift Cash?{" "}
+            New to Trust Cash?{" "}
             <Link to="/register" className="text-foreground font-medium hover:underline">Create account</Link>
           </p>
         </form>

@@ -16,7 +16,7 @@ export const AppLayout = () => (
             <div className="h-8 w-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
               S
             </div>
-            <span className="font-bold">Swift Cash</span>
+            <span className="font-bold">Trust Cash</span>
           </div>
         </header>
         <main className="flex-1 px-4 md:px-8 py-6 pb-24 md:pb-10 max-w-[1400px] w-full mx-auto">

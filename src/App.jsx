@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute, PublicOnlyRoute } from "@/components/ProtectedRoute";
+import { AdminRoute } from "@/components/AdminRoute";
 import { AppLayout } from "@/components/AppLayout";
 import "./App.css";
 
@@ -26,6 +27,11 @@ import LoanApply from "./pages/LoanApply";
 import LoanRequests from "./pages/LoanRequests";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import AdminCardRequests from "./pages/admin/AdminCardRequests";
+import AdminLoanRequests from "./pages/admin/AdminLoanRequests";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminAccounts from "./pages/admin/AdminAccounts";
+import AdminRoles from "./pages/admin/AdminRoles";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,6 +67,12 @@ function App() {
               <Route path="/loans/apply" element={<LoanApply />} />
               <Route path="/loans/requests" element={<LoanRequests />} />
               <Route path="/profile" element={<Profile />} />
+
+              <Route path="/admin/card-requests" element={<AdminRoute><AdminCardRequests /></AdminRoute>} />
+              <Route path="/admin/loan-requests" element={<AdminRoute><AdminLoanRequests /></AdminRoute>} />
+              <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+              <Route path="/admin/accounts" element={<AdminRoute><AdminAccounts /></AdminRoute>} />
+              <Route path="/admin/roles" element={<AdminRoute><AdminRoles /></AdminRoute>} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

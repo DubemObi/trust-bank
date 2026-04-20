@@ -48,6 +48,10 @@ export const cardRequestsApi = {
   get: (id) => api.get(`/api/CardRequest/${id}`).then((r) => r.data),
   create: (data) => api.post('/api/CardRequest', data).then((r) => r.data),
   remove: (id) => api.delete(`/api/CardRequest/${id}`).then((r) => r.data),
+   approve: (id) =>
+    api.post(`/api/CardRequest/approve`, { id }).then((r) => r.data),
+  reject: (id) =>
+    api.post(`/api/CardRequest/reject`, { id }).then((r) => r.data),
 }
 
 // Loans
@@ -62,4 +66,22 @@ export const loanRequestsApi = {
   get: (id) => api.get(`/api/LoanRequest/${id}`).then((r) => r.data),
   create: (data) => api.post('/api/LoanRequest', data).then((r) => r.data),
   remove: (id) => api.delete(`/api/LoanRequest/${id}`).then((r) => r.data),
-}
+  approve: (id) =>
+    api.post(`/api/LoanRequest/approve`, { id }).then((r) => r.data),
+  reject: (id) =>
+    api.post(`/api/LoanRequest/reject`, { id }).then((r) => r.data),
+};
+
+// Roles
+
+export const rolesApi = {
+  list: () => api.get("/api/Role").then((r) => r.data),
+  get: (id) => api.get(`/api/Role/${id}`).then((r) => r.data),
+  create: (data) =>
+    api.post("/api/Role", data).then((r) => r.data),
+  update: (id, data) =>
+    api.put(`/api/Role/${id}`, data).then((r) => r.data),
+  remove: (id) => api.delete(`/api/Role/${id}`).then((r) => r.data),
+  assign: (data) =>
+    api.post(`/api/Role/assign`, data).then((r) => r.data),
+};

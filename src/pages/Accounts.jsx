@@ -85,7 +85,7 @@ const Accounts = () => {
           <EmptyState
             icon={<Wallet className="h-6 w-6" />}
             title="No accounts yet"
-            description="Open your first account to start banking with Swift Cash."
+            description="Open your first account to start banking with Trust Cash."
             action={<Button onClick={() => setOpen(true)} className="rounded-xl"><Plus className="h-4 w-4" /> Create account</Button>}
           />
         </div>

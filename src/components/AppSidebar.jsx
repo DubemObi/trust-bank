@@ -1,4 +1,4 @@
-import { LayoutDashboard, Wallet, ArrowLeftRight, Receipt, CreditCard, Landmark, User as UserIcon, LogOut } from "lucide-react";
+import { LayoutDashboard, Wallet, ArrowLeftRight, Receipt, CreditCard, Landmark, User as UserIcon, LogOut, ShieldCheck, Users, FileCheck2, BadgeCheck } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -15,6 +15,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { initials } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { useIsAdmin } from "@/components/AdminRoute";
 
 const items = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -25,10 +26,19 @@ const items = [
   { title: "Loans", url: "/loans", icon: Landmark },
 ];
 
+const adminItems = [
+  { title: "Card Requests", url: "/admin/card-requests", icon: FileCheck2 },
+  { title: "Loan Requests", url: "/admin/loan-requests", icon: BadgeCheck },
+  { title: "Users", url: "/admin/users", icon: Users },
+  { title: "Accounts", url: "/admin/accounts", icon: Wallet },
+  { title: "Roles", url: "/admin/roles", icon: ShieldCheck },
+];
+
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const { user, logout } = useAuth();
+  const isAdmin = useIsAdmin();
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
@@ -67,6 +77,30 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {isAdmin && (
+          <SidebarGroup>
+            {!collapsed && <SidebarGroupLabel>Admin</SidebarGroupLabel>}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {adminItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        className="hover:bg-sidebar-accent rounded-xl"
+                        activeClassName="bg-primary/15 text-foreground font-medium"
+                      >
+                        <item.icon className="h-4 w-4" />
+                        {!collapsed && <span>{item.title}</span>}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border p-3 bg-sidebar">
