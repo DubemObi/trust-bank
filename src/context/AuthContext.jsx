@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import jwtDecode from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
 import { authApi, usersApi } from '@/lib/endpoints'
 import { setUnauthorizedHandler, tokenStore } from '@/lib/api'
 

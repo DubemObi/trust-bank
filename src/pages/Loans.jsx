@@ -64,7 +64,7 @@ const Loans = () => {
   );
 };
 
-const Detail = ({ label, value }: { label: string; value: string }) => (
+const Detail = ({ label, value }) => (
   <div>
     <p className="text-xs text-muted-foreground">{label}</p>
     <p className="font-medium">{value}</p>

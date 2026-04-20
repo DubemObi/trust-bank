@@ -30,7 +30,7 @@ const Profile = () => {
   }, [user]);
 
   const update = useMutation({
-    mutationFn: () => usersApi.update(user!.id, { firstName, lastName, phoneNumber }),
+    mutationFn: () => usersApi.update(user.id, { firstName, lastName, phoneNumber }),
     onSuccess: async () => {
       toast.success("Profile updated");
       await refreshUser();
@@ -39,7 +39,7 @@ const Profile = () => {
   });
 
   const remove = useMutation({
-    mutationFn: () => authApi.deleteUser(user!.id),
+    mutationFn: () => authApi.deleteUser(user.id),
     onSuccess: () => {
       toast.success("Account deleted");
       logout();

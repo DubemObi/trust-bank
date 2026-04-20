@@ -12,11 +12,8 @@ import { toast } from "sonner";
 import { extractError } from "@/lib/api";
 import { formatCurrency, maskAccount } from "@/lib/format";
 
-interface Props {
-  mode: "deposit" | "withdraw";
-}
 
-const MoneyForm = ({ mode }: Props) => {
+const MoneyForm = ({ mode }) => {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [params] = useSearchParams();
@@ -43,7 +40,7 @@ const MoneyForm = ({ mode }: Props) => {
     onError: (e) => toast.error(extractError(e)),
   });
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!accountId) return toast.error("Pick an account");
     const n = Number(amount);

@@ -49,7 +49,7 @@ const TransactionDetail = () => {
   );
 };
 
-const Row = ({ label, value, mono }: { label: string; value: string; mono?: boolean }) => (
+const Row = ({ label, value, mono }) => (
   <div className="flex justify-between gap-4">
     <span className="text-white/60">{label}</span>
     <span className={mono ? "font-mono text-xs truncate" : "text-right"}>{value}</span>

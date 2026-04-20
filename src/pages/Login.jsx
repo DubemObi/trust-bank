@@ -14,7 +14,7 @@ const Login = () => {
   const from = (location.state)?.from?.pathname || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {

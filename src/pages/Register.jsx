@@ -21,24 +21,24 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", password: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const update = (k: keyof typeof form, v: string) => setForm((s) => ({ ...s, [k]: v }));
+  const update = (k, v) => setForm((s) => ({ ...s, [k]: v }));
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
-      const errs: Record<string, string> = {};
-      parsed.error.issues.forEach((i) => (errs[i.path[0] as string] = i.message));
+      const errs = {};
+      parsed.error.issues.forEach((i) => (errs[i.path[0]] = i.message));
       setErrors(errs);
       return;
     }
     setLoading(true);
     try {
-      await register(parsed.data as { email: string; password: string; firstName?: string; lastName?: string; phoneNumber?: string });
+      await register(parsed.data );
       toast.success("Account created. Please verify your email.");
       navigate("/", { replace: true });
     } catch (err) {
