@@ -2,11 +2,11 @@ import { api } from './api.js'
 
 // Auth
 export const authApi = {
-  login: (data) => api.post('/api/Auth/login', data).then((r) => r.data),
-  register: (data) => api.post('/api/Auth/register', data).then((r) => r.data),
-  verifyEmail: (token) => api.get('/api/Auth/verify-email', { params: { token } }).then((r) => r.data),
-  logout: () => api.post('/api/Auth/logout').then((r) => r.data).catch(() => null),
-  deleteUser: (id) => api.delete(`/api/Auth/${id}`).then((r) => r.data),
+  login: (data) => api.post('/api/auth/login', data).then((r) => r.data),
+  register: (data) => api.post('/api/auth/register', data).then((r) => r.data),
+  verifyEmail: (token) => api.get('/api/auth/verify-email', { params: { token } }).then((r) => r.data),
+  logout: () => api.post('/api/auth/logout').then((r) => r.data).catch(() => null),
+  deleteUser: (id) => api.delete(`/api/auth/${id}`).then((r) => r.data),
 }
 
 // Users

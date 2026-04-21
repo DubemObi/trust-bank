@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { toast } from 'sonner'
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://localhost:5001'
-const TOKEN_KEY = 'swiftcash_token'
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://banking-api-unique145.francecentral.azurecontainer.io/'
+const TOKEN_KEY = 'trustcash_token'
 
 export const tokenStore = {
   get: () => localStorage.getItem(TOKEN_KEY),

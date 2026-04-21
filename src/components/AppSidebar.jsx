@@ -45,11 +45,11 @@ export function AppSidebar() {
       <SidebarContent className="bg-sidebar">
         <div className={cn("px-4 pt-6 pb-4 flex items-center gap-2", collapsed && "justify-center px-2")}>
           <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">
-            S
+            T
           </div>
           {!collapsed && (
             <div>
-              <p className="font-bold leading-tight">Swift Cash</p>
+              <p className="font-bold leading-tight">Trust Cash</p>
               <p className="text-xs text-muted-foreground">Online Banking</p>
             </div>
           )}
