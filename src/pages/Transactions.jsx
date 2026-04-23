@@ -28,7 +28,7 @@ const Transactions = () => {
         ) : (
           <div className="space-y-1">
             {data.map((tx) => (
-              <TransactionRow key={tx.id} tx={tx} onClick={() => navigate(`/transactions/${tx.id}`)} />
+              <TransactionRow key={tx.id} tx={tx} onClick={() => navigate(`/transactions/${tx.transactionId}`)} />
             ))}
           </div>
         )}

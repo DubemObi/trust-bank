@@ -18,12 +18,12 @@ const MoneyForm = ({ mode }) => {
   const qc = useQueryClient();
   const [params] = useSearchParams();
   const initial = params.get("account") || "";
-  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.list });
+  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
   const [accountId, setAccountId] = useState(initial);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
-  const selected = accountsQ.data?.find((a) => a.id === accountId);
+  const selected = accountsQ.data?.find((a) => a.accountId === accountId);
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -62,8 +62,8 @@ const MoneyForm = ({ mode }) => {
             <SelectTrigger><SelectValue placeholder="Select account" /></SelectTrigger>
             <SelectContent>
               {accountsQ.data?.map((a) => (
-                <SelectItem key={a.id} value={a.id}>
-                  {maskAccount(a.accountNumber)} — {formatCurrency(a.balance, a.currency)}
+                <SelectItem key={a.accountId} value={a.accountId}>
+                  {maskAccount(a.accountNumber)} — {formatCurrency(a.accountBalance, a.currency)}
                 </SelectItem>
               ))}
             </SelectContent>

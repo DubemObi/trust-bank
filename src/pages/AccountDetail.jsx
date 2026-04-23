@@ -28,7 +28,9 @@ const AccountDetail = () => {
     onError: (e) => toast.error(extractError(e)),
   });
 
-  const txs = (txQ.data ?? []).filter((t) => t.accountId === id || t.fromAccountId === id || t.toAccountId === id);
+  const txs = (txQ.data ?? []).filter(
+  (t) => t.accountId === Number(id) || t.recipientAccountId === Number(id)
+);
 
   return (
     <div className="space-y-5 animate-fade-in">
@@ -65,7 +67,7 @@ const AccountDetail = () => {
         ) : (
           <div className="space-y-1">
             {txs.map((t) => (
-              <TransactionRow key={t.id} tx={t} currentAccountId={id} onClick={() => navigate(`/transactions/${t.id}`)} />
+              <TransactionRow key={t.transactionId} tx={t} currentAccountId={id} onClick={() => navigate(`/transactions/${t.transactionId}`)} />
             ))}
           </div>
         )}

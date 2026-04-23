@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { accountsApi } from "@/lib/endpoints";
 import { AccountCard } from "@/components/AccountCard";
@@ -16,15 +17,18 @@ import { toast } from "sonner";
 import { extractError } from "@/lib/api";
 
 const Accounts = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { data: accounts, isLoading } = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.list });
+  const { data: accounts, isLoading } = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
   const [open, setOpen] = useState(false);
+  const [accountName, setAccountName] = useState("");
   const [type, setType] = useState("Checking");
   const [currency, setCurrency] = useState("USD");
 
+
   const create = useMutation({
-    mutationFn: () => accountsApi.create({ accountType: type, currency }),
+    mutationFn: () => accountsApi.create({ accountName: accountName, accountType: Number(type), accountStatus: 1, userId: user?.id }),
     onSuccess: () => {
       toast.success("Account created");
       qc.invalidateQueries({ queryKey: ["accounts"] });
@@ -47,18 +51,22 @@ const Accounts = () => {
               <DialogHeader><DialogTitle>Open a new account</DialogTitle></DialogHeader>
               <div className="space-y-4">
                 <div className="space-y-2">
+                  <Label htmlFor="name">Account name</Label>
+                  <Input id="name" value={accountName} onChange={(e) => setAccountName(e.target.value)} />
+                </div>
+                <div className="space-y-2">
                   <Label>Account type</Label>
                   <Select value={type} onValueChange={setType}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Checking">Checking</SelectItem>
-                      <SelectItem value="Savings">Savings</SelectItem>
+                      <SelectItem value="1">Checking</SelectItem>
+                      <SelectItem value="2">Savings</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label>Currency</Label>
-                  <Select value={currency} onValueChange={setCurrency}>
+                  <Select value={currency} onValueChange={setCurrency} DefaultValue="GBP" disabled>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="USD">USD</SelectItem>
@@ -92,7 +100,7 @@ const Accounts = () => {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {accounts.map((a, i) => (
-            <AccountCard key={a.id} account={a} variant={i === 0 ? "primary" : "default"} onClick={() => navigate(`/accounts/${a.id}`)} />
+            <AccountCard key={a.accountId} account={a} variant={i === 0 ? "primary" : "default"} onClick={() => navigate(`/accounts/${a.accountId}`)} />
           ))}
         </div>
       )}

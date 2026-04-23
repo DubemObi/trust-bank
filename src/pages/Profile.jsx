@@ -108,7 +108,7 @@ const Profile = () => {
             <AlertDialogFooter>
               <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={() => user?.id && remove.mutate()}
+                onClick={() => user?.email && remove.mutate()}
                 className="rounded-xl bg-destructive hover:bg-destructive/90"
               >
                 {remove.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Delete"}

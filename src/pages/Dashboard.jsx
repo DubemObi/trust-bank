@@ -13,13 +13,13 @@ import { formatCurrency } from "@/lib/format";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.list });
+  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
   const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.list });
 
   const accounts = accountsQ.data ?? [];
   const primary = accounts[0];
   const recent = (txQ.data ?? []).slice(0, 6);
-  const totalBalance = accounts.reduce((s, a) => s + (a.balance ?? 0), 0);
+  const totalBalance = accounts.reduce((s, a) => s + (a.accountBalance ?? 0), 0);
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -116,7 +116,7 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold mb-3">Your accounts</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {accounts.slice(1).map((a) => (
-              <AccountCard key={a.id} account={a} onClick={() => navigate(`/accounts/${a.id}`)} />
+              <AccountCard key={a.accountId} account={a} onClick={() => navigate(`/accounts/${a.accountId}`)} />
             ))}
           </div>
         </div>

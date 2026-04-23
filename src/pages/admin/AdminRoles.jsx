@@ -28,7 +28,7 @@ const AdminRoles = () => {
   const { data, isLoading } = useQuery({ queryKey: ["admin", "roles"], queryFn: rolesApi.list });
 
   const create = useMutation({
-    mutationFn: () => rolesApi.create({ name: name.trim() }),
+    mutationFn: () => rolesApi.create(name.trim() ),
     onSuccess: () => {
       toast.success("Role created");
       setName("");

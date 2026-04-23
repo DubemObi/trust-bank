@@ -18,7 +18,7 @@ const AdminCardRequests = () => {
   });
 
   const approve = useMutation({
-    mutationFn: (id) => cardRequestsApi.approve(id),
+    mutationFn: (id) => cardRequestsApi.approve({cardRequestId: Number(id), isApproved: 1}),
     onSuccess: () => {
       toast.success("Card request approved");
       qc.invalidateQueries({ queryKey: ["admin", "card-requests"] });
@@ -27,7 +27,7 @@ const AdminCardRequests = () => {
   });
 
   const reject = useMutation({
-    mutationFn: (id) => cardRequestsApi.reject(id),
+    mutationFn: (id) => cardRequestsApi.reject({cardRequestId: Number(id), isApproved: 2}),
     onSuccess: () => {
       toast.success("Card request rejected");
       qc.invalidateQueries({ queryKey: ["admin", "card-requests"] });
@@ -54,14 +54,14 @@ const AdminCardRequests = () => {
       ) : (
         <div className="space-y-3">
           {data.map((r) => {
-            const pending = (r.status || "").toLowerCase() === "pending" || !r.status;
+            const pending = (r.status || "") === 0 || !r.status;
             return (
               <div
                 key={r.id}
                 className="bg-card border border-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-card"
               >
                 <div className="min-w-0">
-                  <p className="font-medium truncate">{r.cardType || "Card"} request</p>
+                  <p className="font-medium truncate">{r.cardType === 0 ? "Credit" : r.cardType === 1 ? "Debit" : "Card"} card request</p>
                   <p className="text-xs text-muted-foreground">
                     {formatDate(r.createdAt)} · #{String(r.id).slice(0, 8)}
                   </p>
@@ -70,7 +70,7 @@ const AdminCardRequests = () => {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <StatusBadge status={r.status} />
+                  <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
                   {pending && (
                     <>
                       <Button

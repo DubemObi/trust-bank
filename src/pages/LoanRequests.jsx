@@ -8,7 +8,7 @@ import { formatCurrency, formatDate } from "@/lib/format";
 import { FileText } from "lucide-react";
 
 const LoanRequests = () => {
-  const { data, isLoading } = useQuery({ queryKey: ["loan-requests"], queryFn: loanRequestsApi.list });
+  const { data, isLoading } = useQuery({ queryKey: ["loan-requests"], queryFn: loanRequestsApi.myRequests });
 
   return (
     <div>
@@ -24,10 +24,10 @@ const LoanRequests = () => {
           {data.map((r) => (
             <div key={r.id} className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between shadow-card">
               <div>
-                <p className="font-medium">{formatCurrency(r.amount)} · {r.termMonths ?? "—"} mo</p>
+                <p className="font-medium">{formatCurrency(r.principalAmount)} · {r.durationInMonths ?? "—"} mo</p>
                 <p className="text-xs text-muted-foreground">{r.purpose || "No purpose specified"} · {formatDate(r.createdAt)}</p>
               </div>
-              <StatusBadge status={r.status} />
+              <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
             </div>
           ))}
         </div>

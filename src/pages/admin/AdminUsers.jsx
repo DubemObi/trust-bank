@@ -36,7 +36,7 @@ const AdminUsers = () => {
   const rolesQ = useQuery({ queryKey: ["admin", "roles"], queryFn: rolesApi.list });
 
   const remove = useMutation({
-    mutationFn: (id) => authApi.deleteUser(id),
+    mutationFn: (email) => authApi.deleteUser(email), 
     onSuccess: () => {
       toast.success("User deleted");
       qc.invalidateQueries({ queryKey: ["admin", "users"] });

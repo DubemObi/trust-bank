@@ -18,7 +18,7 @@ const AdminLoanRequests = () => {
   });
 
   const approve = useMutation({
-    mutationFn: (id) => loanRequestsApi.approve(id),
+    mutationFn: (id) => loanRequestsApi.approve({ loanRequestId: Number(id), isApproved: 1 }),
     onSuccess: () => {
       toast.success("Loan request approved");
       qc.invalidateQueries({ queryKey: ["admin", "loan-requests"] });
@@ -27,7 +27,7 @@ const AdminLoanRequests = () => {
   });
 
   const reject = useMutation({
-    mutationFn: (id) => loanRequestsApi.reject(id),
+    mutationFn: (id) => loanRequestsApi.reject({ loanRequestId: Number(id), isApproved: 2 }),
     onSuccess: () => {
       toast.success("Loan request rejected");
       qc.invalidateQueries({ queryKey: ["admin", "loan-requests"] });
@@ -51,7 +51,7 @@ const AdminLoanRequests = () => {
       ) : (
         <div className="space-y-3">
           {data.map((r) => {
-            const pending = (r.status || "").toLowerCase() === "pending" || !r.status;
+            const pending = (r.status || "") === 0 || !r.status;
             return (
               <div
                 key={r.id}
@@ -59,7 +59,7 @@ const AdminLoanRequests = () => {
               >
                 <div className="min-w-0">
                   <p className="font-medium">
-                    {formatCurrency(r.amount)} · {r.termMonths ?? "—"} months
+                    {formatCurrency(r.principalAmount)} · {r.durationInMonths ?? "—"} months
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {formatDate(r.createdAt)} · #{String(r.id).slice(0, 8)}
@@ -69,7 +69,7 @@ const AdminLoanRequests = () => {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <StatusBadge status={r.status} />
+                  <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
                   {pending && (
                     <>
                       <Button

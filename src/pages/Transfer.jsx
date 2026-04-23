@@ -16,19 +16,19 @@ const Transfer = () => {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [params] = useSearchParams();
-  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.list });
+  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
   const [from, setFrom] = useState(params.get("from") || "");
   const [to, setTo] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
-  const fromAcc = accountsQ.data?.find((a) => a.id === from);
+  const fromAcc = accountsQ.data?.find((a) => a.accountId === from);
 
   const mutation = useMutation({
     mutationFn: () =>
       transactionsApi.transfer({
-        fromAccountId: from,
-        toAccountId: to,
+        accountId: from,
+        recipientAccountNumber: to,
         amount: Number(amount),
         description,
       }),
@@ -61,8 +61,8 @@ const Transfer = () => {
             <SelectTrigger><SelectValue placeholder="Source account" /></SelectTrigger>
             <SelectContent>
               {accountsQ.data?.map((a) => (
-                <SelectItem key={a.id} value={a.id}>
-                  {maskAccount(a.accountNumber)} — {formatCurrency(a.balance, a.currency)}
+                <SelectItem key={a.accountId} value={a.accountId}>
+                  {maskAccount(a.accountNumber)} — {formatCurrency(a.accountBalance, a.currency)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -82,11 +82,11 @@ const Transfer = () => {
             Or pick one of yours:
           </p>
           <div className="flex flex-wrap gap-2">
-            {accountsQ.data?.filter((a) => a.id !== from).map((a) => (
+            {accountsQ.data?.filter((a) => a.accountId !== from).map((a) => (
               <button
                 type="button"
-                key={a.id}
-                onClick={() => setTo(a.id)}
+                key={a.accountId}
+                onClick={() => setTo(a.accountId)}
                 className="text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted"
               >
                 {maskAccount(a.accountNumber)}

@@ -13,8 +13,8 @@ const decodeRoles = (token) => {
     const roles = Array.isArray(roleClaim) ? roleClaim : roleClaim ? [roleClaim] : []
     return {
       roles,
-      userId: claims.sub || claims.nameid,
-      email: claims.email || claims.unique_name,
+      userId: claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"] || claims.nameid,
+      email: claims.sub || claims.unique_name,
     }
   } catch {
     return { roles: [] }

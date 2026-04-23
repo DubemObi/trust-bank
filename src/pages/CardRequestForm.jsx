@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { accountsApi, cardRequestsApi } from "@/lib/endpoints";
@@ -14,14 +15,16 @@ import { maskAccount } from "@/lib/format";
 
 const CardRequestForm = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const qc = useQueryClient();
-  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.list });
+  const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
   const [accountId, setAccountId] = useState("");
-  const [cardType, setCardType] = useState("Debit");
+  const [cardType, setCardType] = useState("");
+  const [cardBrand, setCardBrand] = useState("");
   const [reason, setReason] = useState("");
 
   const mutation = useMutation({
-    mutationFn: () => cardRequestsApi.create({ accountId, cardType, reason }),
+    mutationFn: () => cardRequestsApi.create({ userId: user.id, cardType: cardType === "Debit" ? 0 : 1, cardBrand: cardBrand === "Visa" ? 0 : 1, accountId }),
     onSuccess: () => {
       toast.success("Card request submitted");
       qc.invalidateQueries({ queryKey: ["card-requests"] });
@@ -37,6 +40,8 @@ const CardRequestForm = () => {
         onSubmit={(e) => {
           e.preventDefault();
           if (!accountId) return toast.error("Pick an account");
+          if (!cardType) return toast.error("Pick a card type");
+          if (!cardBrand) return toast.error("Pick a card brand");
           mutation.mutate();
         }}
         className="space-y-5 bg-card border border-border rounded-3xl p-6 shadow-card"
@@ -47,7 +52,7 @@ const CardRequestForm = () => {
             <SelectTrigger><SelectValue placeholder="Linked account" /></SelectTrigger>
             <SelectContent>
               {accountsQ.data?.map((a) => (
-                <SelectItem key={a.id} value={a.id}>{maskAccount(a.accountNumber)}</SelectItem>
+                <SelectItem key={a.accountId} value={a.accountId}>{maskAccount(a.accountNumber)}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -59,6 +64,16 @@ const CardRequestForm = () => {
             <SelectContent>
               <SelectItem value="Debit">Debit</SelectItem>
               <SelectItem value="Credit">Credit</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label>Card Brand</Label>
+          <Select value={cardBrand} onValueChange={setCardBrand}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Visa">Visa</SelectItem>
+              <SelectItem value="Mastercard">Mastercard</SelectItem>
             </SelectContent>
           </Select>
         </div>

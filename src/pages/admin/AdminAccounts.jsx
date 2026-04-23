@@ -49,7 +49,7 @@ const AdminAccounts = () => {
         <div className="space-y-3">
           {data.map((a) => (
             <div
-              key={a.id}
+              key={a.accountId}
               className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between gap-4 shadow-card"
             >
               <div className="min-w-0">
@@ -57,11 +57,11 @@ const AdminAccounts = () => {
                   {a.accountType || "Account"} · {maskAccount(a.accountNumber)}
                 </p>
                 <p className="text-xs text-muted-foreground truncate">
-                  Owner: {a.userId ?? "—"}
+                  Owner: {a.accountName ?? "—"}
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <p className="font-semibold">{formatCurrency(a.balance, a.currency)}</p>
+                <p className="font-semibold">{formatCurrency(a.accountBalance, a.currency)}</p>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
                     <Button size="icon" variant="ghost" className="text-destructive hover:text-destructive">
@@ -77,7 +77,7 @@ const AdminAccounts = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => remove.mutate(a.id)}>
+                      <AlertDialogAction onClick={() => remove.mutate(a.accountId)}>
                         Delete
                       </AlertDialogAction>
                     </AlertDialogFooter>

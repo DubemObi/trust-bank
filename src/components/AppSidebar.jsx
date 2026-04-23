@@ -118,9 +118,9 @@ export function AppSidebar() {
           {!collapsed && (
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium truncate">
-                {user?.fullName || user?.firstName || user?.email || "Account"}
+                {(user?.fullName || user?.firstName || user?.email || "Account").slice(0, 8) + "..."}
               </p>
-              <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+              <p className="text-xs text-muted-foreground truncate">{(user?.email).slice(0, 8) + "..."}</p>
             </div>
           )}
         </NavLink>

@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/format";
 import { FileText } from "lucide-react";
 
 const CardRequests = () => {
-  const { data, isLoading } = useQuery({ queryKey: ["card-requests"], queryFn: cardRequestsApi.list });
+  const { data, isLoading } = useQuery({ queryKey: ["card-requests"], queryFn: cardRequestsApi.myRequests });
 
   return (
     <div>
@@ -27,7 +27,7 @@ const CardRequests = () => {
                 <p className="font-medium">{r.cardType || "Card"} request</p>
                 <p className="text-xs text-muted-foreground">{formatDate(r.createdAt)}</p>
               </div>
-              <StatusBadge status={r.status} />
+              <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
             </div>
           ))}
         </div>

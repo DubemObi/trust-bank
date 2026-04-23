@@ -1,4 +1,4 @@
-export const formatCurrency = (amount, currency = "USD") => {
+export const formatCurrency = (amount, currency = "GBP") => {
   try {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -6,7 +6,7 @@ export const formatCurrency = (amount, currency = "USD") => {
       maximumFractionDigits: 2,
     }).format(amount ?? 0);
   } catch {
-    return `$${(amount ?? 0).toFixed(2)}`;
+    return `£${(amount ?? 0).toFixed(2)}`;
   }
 };
 

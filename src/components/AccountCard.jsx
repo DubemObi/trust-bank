@@ -25,14 +25,14 @@ export const AccountCard = ({ account, variant = "default", onClick }) => {
           <Wallet className="h-5 w-5" />
         </div>
         <span className={cn("text-xs uppercase tracking-wider", isPrimary ? "text-white/60" : "text-muted-foreground")}>
-          {account.accountType || "Checking"}
+          {account.accountType == 1 ? "Checking" : "Savings"}
         </span>
       </div>
       <p className={cn("text-xs mb-1", isPrimary ? "text-white/60" : "text-muted-foreground")}>
         Available balance
       </p>
       <p className={cn("text-3xl font-bold mb-3", isPrimary ? "text-white" : "text-foreground")}>
-        {formatCurrency(account.balance, account.currency)}
+        {formatCurrency(account.accountBalance, account.currency)}
       </p>
       <p className={cn("text-sm font-mono", isPrimary ? "text-white/70" : "text-muted-foreground")}>
         {maskAccount(account.accountNumber)}
