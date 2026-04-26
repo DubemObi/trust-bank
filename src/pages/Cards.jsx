@@ -7,10 +7,12 @@ import { CreditCard, Plus, FileText } from "lucide-react";
 import { CardSkeleton } from "@/components/Skeletons";
 import { EmptyState } from "@/components/EmptyState";
 import { maskAccount } from "@/lib/format";
+import { useAuth } from "../context/AuthContext";
 
 const Cards = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery({ queryKey: ["cards"], queryFn: cardsApi.list });
+  const { user } = useAuth();
+  const { data, isLoading } = useQuery({ queryKey: ["cards"], queryFn: cardsApi.myCards });
 
   return (
     <div>
@@ -47,13 +49,13 @@ const Cards = () => {
           {data.map((c) => (
             <div key={c.id} className="surface-dark rounded-3xl p-6 shadow-elevated aspect-[1.6/1] flex flex-col justify-between">
               <div className="flex justify-between items-start">
-                <span className="text-xs uppercase tracking-wider text-white/60">{c.cardType || "Debit"}</span>
+                <span className="text-xs uppercase tracking-wider text-white/60">{c.cardType  === 0 ? "Debit" : "Credit"}</span>
                 <CreditCard className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <p className="font-mono text-lg tracking-widest">{maskAccount(c.cardNumber)}</p>
+                <p className="font-mono text-lg tracking-widest">{"**** **** " + c.last4Digits}</p>
                 <div className="flex justify-between items-end mt-3 text-xs text-white/70">
-                  <span>{c.cardHolderName || "—"}</span>
+                  <span>{user.firstName} {user.lastName}</span>
                   <span>{c.expiryDate || "•• / ••"}</span>
                 </div>
               </div>
@@ -66,3 +68,5 @@ const Cards = () => {
 };
 
 export default Cards;
+
+

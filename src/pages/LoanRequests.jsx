@@ -27,7 +27,7 @@ const LoanRequests = () => {
                 <p className="font-medium">{formatCurrency(r.principalAmount)} · {r.durationInMonths ?? "—"} mo</p>
                 <p className="text-xs text-muted-foreground">{r.purpose || "No purpose specified"} · {formatDate(r.createdAt)}</p>
               </div>
-              <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
+              <StatusBadge status={r.status === 0 ? "Pending" : r.status === 1 ? "Approved" : "Rejected"} />
             </div>
           ))}
         </div>

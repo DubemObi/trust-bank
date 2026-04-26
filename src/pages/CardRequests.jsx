@@ -27,7 +27,7 @@ const CardRequests = () => {
                 <p className="font-medium">{r.cardType || "Card"} request</p>
                 <p className="text-xs text-muted-foreground">{formatDate(r.createdAt)}</p>
               </div>
-              <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
+              <StatusBadge status={r.status === 0 ? "Pending" : r.status === 1 ? "Approved" : "Rejected"} />
             </div>
           ))}
         </div>

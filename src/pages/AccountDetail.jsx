@@ -16,7 +16,7 @@ const AccountDetail = () => {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const accountQ = useQuery({ queryKey: ["account", id], queryFn: () => accountsApi.get(id), enabled: !!id });
-  const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.list });
+  const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.myTransactions });
 
   const remove = useMutation({
     mutationFn: () => accountsApi.remove(id),

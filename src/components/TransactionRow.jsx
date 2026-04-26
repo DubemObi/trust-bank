@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils";
 
 
 export const TransactionRow = ({ tx, currentAccountId, onClick }) => {
+  const typeStr = String(tx.type || "").toLowerCase();
   const isCredit =
-    tx.type?.toLowerCase().includes("deposit") ||
-    tx.type?.toLowerCase() === "credit" ||
+    typeStr.includes("deposit") ||
+    typeStr === "credit" ||
     (tx.toAccountId && currentAccountId && tx.toAccountId === currentAccountId);
 
-  const isTransfer = tx.type?.toLowerCase().includes("transfer");
+  const isTransfer = typeStr.includes("transfer");
   const Icon = isTransfer ? Repeat : isCredit ? ArrowDownLeft : ArrowUpRight;
 
   return (

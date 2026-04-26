@@ -24,7 +24,7 @@ const Accounts = () => {
   const [open, setOpen] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [type, setType] = useState("Checking");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState("GBP");
 
 
   const create = useMutation({

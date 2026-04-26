@@ -14,7 +14,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const accountsQ = useQuery({ queryKey: ["accounts"], queryFn: accountsApi.myAccounts });
-  const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.list });
+  const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.myTransactions });
 
   const accounts = accountsQ.data ?? [];
   const primary = accounts[0];
@@ -36,7 +36,7 @@ const Dashboard = () => {
           {accountsQ.isLoading ? (
             <CardSkeleton />
           ) : primary ? (
-            <AccountCard account={primary} variant="primary" onClick={() => navigate(`/accounts/${primary.id}`)} />
+            <AccountCard account={primary} variant="primary" onClick={() => navigate(`/accounts/${primary.accountId}`)} />
           ) : (
             <div className="rounded-3xl border border-dashed border-border p-6 bg-card">
               <EmptyState
@@ -104,7 +104,7 @@ const Dashboard = () => {
           ) : (
             <div className="space-y-1">
               {recent.map((tx) => (
-                <TransactionRow key={tx.id} tx={tx} onClick={() => navigate(`/transactions/${tx.id}`)} />
+                <TransactionRow key={tx.id} tx={tx} onClick={() => navigate(`/transactions/${tx.transactionId}`)} />
               ))}
             </div>
           )}

@@ -14,13 +14,15 @@ const schema = z.object({
   lastName: z.string().trim().min(1, "Required").max(80),
   email: z.string().trim().email("Invalid email").max(255),
   phoneNumber: z.string().trim().max(40).optional().or(z.literal("")),
+  address: z.string().trim().max(255).optional().or(z.literal("")),
   password: z.string().min(8, "At least 8 characters").max(128),
+  confirmPassword: z.string().min(8, "At least 8 characters").max(128),
 });
 
 const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", password: "" });
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", address: "", password: "", confirmPassword: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -77,13 +79,22 @@ const Register = () => {
           {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phoneNumber">Phone (optional)</Label>
+          <Label htmlFor="phoneNumber">Phone Number</Label>
           <Input id="phoneNumber" value={form.phoneNumber} onChange={(e) => update("phoneNumber", e.target.value)} />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="address">Address</Label>
+          <Input id="address" value={form.address} onChange={(e) => update("address", e.target.value)} />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <Input id="password" type="password" value={form.password} onChange={(e) => update("password", e.target.value)} />
           {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input id="confirmPassword" type="password" value={form.confirmPassword} onChange={(e) => update("confirmPassword", e.target.value)} />
+          {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword}</p>}
         </div>
         <Button type="submit" className="w-full h-11 rounded-xl font-semibold" disabled={loading}>
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create account"}

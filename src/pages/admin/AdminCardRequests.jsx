@@ -70,7 +70,7 @@ const AdminCardRequests = () => {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <StatusBadge status={r.status === 0 ? "pending" : r.status === 1 ? "approved" : "rejected"} />
+                  <StatusBadge status={r.status === 0 ? "Pending" : r.status === 1 ? "Approved" : "Rejected"} />
                   {pending && (
                     <>
                       <Button

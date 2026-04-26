@@ -11,7 +11,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 
 const Loans = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery({ queryKey: ["loans"], queryFn: loansApi.list });
+  const { data, isLoading } = useQuery({ queryKey: ["loans"], queryFn: loansApi.myLoans });
 
   return (
     <div>
@@ -47,14 +47,14 @@ const Loans = () => {
             <div key={l.id} className="bg-card border border-border rounded-3xl p-6 shadow-card">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">Loan</span>
-                <StatusBadge status={l.status} />
+                <StatusBadge status={l.status === 0 ? "Pending" : l.status === 1 ? "Approved" : "Rejected"} />
               </div>
-              <p className="text-3xl font-bold">{formatCurrency(l.amount)}</p>
+              <p className="text-3xl font-bold">{formatCurrency(l.principalAmount)}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
                 {l.interestRate != null && <Detail label="Rate" value={`${l.interestRate}%`} />}
-                {l.termMonths != null && <Detail label="Term" value={`${l.termMonths} mo`} />}
+                {l.durationInMonths != null && <Detail label="Term" value={`${l.durationInMonths} mo`} />}
                 {l.remainingBalance != null && <Detail label="Remaining" value={formatCurrency(l.remainingBalance)} />}
-                {l.startDate && <Detail label="Started" value={formatDate(l.startDate)} />}
+                {l.createdAt && <Detail label="Started" value={formatDate(l.createdAt)} />}
               </div>
             </div>
           ))}

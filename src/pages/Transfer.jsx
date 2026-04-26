@@ -47,7 +47,7 @@ const Transfer = () => {
     if (from === to) return toast.error("Accounts must be different");
     const n = Number(amount);
     if (!n || n <= 0) return toast.error("Enter a valid amount");
-    if (fromAcc && n > (fromAcc.balance ?? 0)) return toast.error("Insufficient funds");
+    if (fromAcc && n > (fromAcc.accountBalance ?? 0)) return toast.error("Insufficient funds");
     mutation.mutate();
   };
 
@@ -56,9 +56,9 @@ const Transfer = () => {
       <PageHeader title="Transfer" subtitle="Move money between accounts" />
       <form onSubmit={onSubmit} className="space-y-5 bg-card border border-border rounded-3xl p-6 shadow-card">
         <div className="space-y-2">
-          <Label>From</Label>
+          <Label htmlFor="from-select">From</Label>
           <Select value={from} onValueChange={setFrom}>
-            <SelectTrigger><SelectValue placeholder="Source account" /></SelectTrigger>
+            <SelectTrigger id="from-select"><SelectValue placeholder="Source account" /></SelectTrigger>
             <SelectContent>
               {accountsQ.data?.map((a) => (
                 <SelectItem key={a.accountId} value={a.accountId}>
@@ -76,8 +76,8 @@ const Transfer = () => {
         </div>
 
         <div className="space-y-2">
-          <Label>To (account ID or number)</Label>
-          <Input value={to} onChange={(e) => setTo(e.target.value)} placeholder="Enter destination account ID" />
+          <Label htmlFor="to">To (account ID or number)</Label>
+          <Input id="to" value={to} onChange={(e) => setTo(e.target.value)} placeholder="Enter destination account ID" />
           <p className="text-xs text-muted-foreground">
             Or pick one of yours:
           </p>
@@ -97,7 +97,7 @@ const Transfer = () => {
         <div className="space-y-2">
           <Label htmlFor="amount">Amount</Label>
           <Input id="amount" type="number" min="0.01" step="0.01" value={amount} onChange={(e) => setAmount(e.target.value)} />
-          {fromAcc && <p className="text-xs text-muted-foreground">Available: {formatCurrency(fromAcc.balance, fromAcc.currency)}</p>}
+          {fromAcc && <p className="text-xs text-muted-foreground">Available: {formatCurrency(fromAcc.accountBalance, fromAcc.currency)}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="desc">Note (optional)</Label>

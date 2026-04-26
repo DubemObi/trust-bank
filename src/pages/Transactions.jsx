@@ -9,7 +9,7 @@ import { Receipt } from "lucide-react";
 
 const Transactions = () => {
   const navigate = useNavigate();
-  const { data, isLoading, error, refetch } = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.list });
+  const { data, isLoading, error, refetch } = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.myTransactions });
 
   return (
     <div>

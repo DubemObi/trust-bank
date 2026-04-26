@@ -120,6 +120,7 @@ export const accountsApi = {
 // Transactions
 export const transactionsApi = {
   list: () => api.get('/api/Transaction').then((r) => r.data),
+  myTransactions: () => api.get('/api/Transaction/my-transactions').then((r) => r.data), 
   get: (id) => api.get(`/api/Transaction/${id}`).then((r) => r.data),
   deposit: (data) => api.post('/api/Transaction/Deposit', data).then((r) => r.data),
   withdraw: (data) => api.post('/api/Transaction/Withdraw', data).then((r) => r.data),
@@ -129,6 +130,7 @@ export const transactionsApi = {
 // Cards
 export const cardsApi = {
   list: () => api.get('/api/Card').then((r) => r.data),
+    myCards: () => api.get('/api/Card/my-cards').then((r) => r.data), 
   get: (id) => api.get(`/api/Card/${id}`).then((r) => r.data),
   remove: (id) => api.delete(`/api/Card/${id}`).then((r) => r.data),
 }
@@ -151,6 +153,7 @@ export const cardRequestsApi = {
 // Loans
 export const loansApi = {
   list: () => api.get('/api/Loan').then((r) => r.data),
+    myLoans: () => api.get('/api/Loan/my-loans').then((r) => r.data), 
   get: (id) => api.get(`/api/Loan/${id}`).then((r) => r.data),
   create: (data) => api.post('/api/Loan', data).then((r) => r.data), // Added create method based on Swagger
   update: (id, data) => api.put(`/api/Loan/${id}`, data).then((r) => r.data),
