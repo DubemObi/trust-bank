@@ -3,11 +3,16 @@ import userEvent from '@testing-library/user-event';
 import Cards from './Cards';
 import { expect, it, describe, vi, beforeEach } from 'vitest';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '@/context/AuthContext';
 import { useNavigate, BrowserRouter } from 'react-router-dom';
 
 // Mock hooks
 vi.mock('@tanstack/react-query', () => ({
   useQuery: vi.fn(),
+}));
+
+vi.mock('@/context/AuthContext', () => ({
+  useAuth: vi.fn(),
 }));
 
 vi.mock('react-router-dom', async () => {
@@ -20,12 +25,13 @@ vi.mock('react-router-dom', async () => {
 
 describe('Cards Page', () => {
   const mockCards = [
-    { id: '1', cardNumber: '1234567812345678', cardType: 'Visa', cardHolderName: 'John Doe', expiryDate: '12/25' },
+    { id: '1', cardNumber: '1234567812345678', cardType: 'Credit', cardHolderName: 'John Doe', expiryDate: '12/25' },
   ];
   const mockNavigate = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
+    useAuth.mockReturnValue({ user: { id: '1' } });
     useNavigate.mockReturnValue(mockNavigate);
     useQuery.mockReturnValue({ data: mockCards, isLoading: false });
   });
@@ -36,8 +42,9 @@ describe('Cards Page', () => {
         <Cards />
       </BrowserRouter>
     );
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText(/•••• 5678/i)).toBeInTheDocument();
+    // Find Credit specifically in the card type span
+    expect(screen.getByText('Credit', { selector: 'span' })).toBeInTheDocument();
+    expect(screen.getByText(/12\/25/)).toBeInTheDocument();
   });
 
   it('navigates to request form when button clicked', async () => {

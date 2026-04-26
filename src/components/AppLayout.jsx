@@ -11,7 +11,7 @@ export const AppLayout = () => (
       </div>
       {/* <div className="flex-1 flex flex-col min-w-0"> */}
       {/* <div className="flex-1 flex flex-col min-w-0 md:ml-64"> */}
-      <div className="flex-1 flex flex-col min-w-0 md:ml-[11rem]">
+      <div className="flex-1 flex flex-col min-w-0 md:ml-[10rem]">
         <header className="h-14 flex items-center gap-3 border-b border-border bg-card/60 backdrop-blur px-4 md:px-8 sticky top-0 z-30">
           <SidebarTrigger className="hidden md:flex" />
           <div className="md:hidden flex items-center gap-2">
