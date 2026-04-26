@@ -47,7 +47,7 @@ const Loans = () => {
             <div key={l.id} className="bg-card border border-border rounded-3xl p-6 shadow-card">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs uppercase tracking-wider text-muted-foreground">Loan</span>
-                <StatusBadge status={l.status === 0 ? "Pending" : l.status === 1 ? "Approved" : "Rejected"} />
+                <StatusBadge status={l.status === 0 ? "Pending" : l.status === "Approved" ? "Approved" : l.status === "Rejected" ? "Rejected" : l.status === "Active" ? "Active" : "Completed"} />
               </div>
               <p className="text-3xl font-bold">{formatCurrency(l.principalAmount)}</p>
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">

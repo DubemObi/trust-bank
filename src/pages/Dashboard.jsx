@@ -17,9 +17,38 @@ const Dashboard = () => {
   const txQ = useQuery({ queryKey: ["transactions"], queryFn: transactionsApi.myTransactions });
 
   const accounts = accountsQ.data ?? [];
+  const isNewUser = accounts.length === 0;
   const primary = accounts[0];
   const recent = (txQ.data ?? []).slice(0, 6);
   const totalBalance = accounts.reduce((s, a) => s + (a.accountBalance ?? 0), 0);
+
+
+  if (accountsQ.isLoading) {
+  return (
+    <div className="space-y-6 animate-fade-in">
+      <CardSkeleton />
+      <ListSkeleton />
+    </div>
+  );
+}
+
+if (isNewUser) {
+  return (
+    <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="rounded-3xl border border-dashed border-border p-8 bg-card max-w-md w-full text-center">
+        <EmptyState
+          title="Welcome to Trust Cash"
+          description="You need to create a bank account to get started."
+          action={
+            <Button onClick={() => navigate("/accounts")} className="rounded-xl">
+              <Plus className="h-4 w-4" /> Create account
+            </Button>
+          }
+        />
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -33,23 +62,23 @@ const Dashboard = () => {
       <div className="grid lg:grid-cols-3 gap-5">
         {/* Left column: balance + actions */}
         <div className="lg:col-span-1 space-y-4">
-          {accountsQ.isLoading ? (
-            <CardSkeleton />
-          ) : primary ? (
+          {primary && (
             <AccountCard account={primary} variant="primary" onClick={() => navigate(`/accounts/${primary.accountId}`)} />
-          ) : (
-            <div className="rounded-3xl border border-dashed border-border p-6 bg-card">
-              <EmptyState
-                title="No accounts yet"
-                description="Open your first bank account to get started."
-                action={
-                  <Button onClick={() => navigate("/accounts")} className="rounded-xl">
-                    <Plus className="h-4 w-4" /> Create account
-                  </Button>
-                }
-              />
-            </div>
-          )}
+          ) 
+          // : (
+          //   <div className="rounded-3xl border border-dashed border-border p-6 bg-card">
+          //     <EmptyState
+          //       title="No accounts yet"
+          //       description="Open your first bank account to get started."
+          //       action={
+          //         <Button onClick={() => navigate("/accounts")} className="rounded-xl">
+          //           <Plus className="h-4 w-4" /> Create account
+          //         </Button>
+          //       }
+          //     />
+          //   </div>
+          // )
+          }
 
           <div className="grid grid-cols-3 gap-2">
             <Button variant="secondary" className="h-auto flex-col py-4 rounded-2xl" onClick={() => navigate("/transfer")}>

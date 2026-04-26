@@ -129,7 +129,7 @@ const AdminUsers = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => remove.mutate(u.id)}>
+                      <AlertDialogAction onClick={() => remove.mutate(u.email)}>
                         Delete
                       </AlertDialogAction>
                     </AlertDialogFooter>

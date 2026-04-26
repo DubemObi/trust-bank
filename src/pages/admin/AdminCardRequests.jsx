@@ -61,7 +61,7 @@ const AdminCardRequests = () => {
                 className="bg-card border border-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-card"
               >
                 <div className="min-w-0">
-                  <p className="font-medium truncate">{r.cardType === 0 ? "Credit" : r.cardType === 1 ? "Debit" : "Card"} card request</p>
+                  <p className="font-medium truncate">{r.cardType === 0 ? "Debit" : r.cardType === 1 ? "Credit" : "Card"} card request</p>
                   <p className="text-xs text-muted-foreground">
                     {formatDate(r.createdAt)} · #{String(r.id).slice(0, 8)}
                   </p>

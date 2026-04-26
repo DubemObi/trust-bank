@@ -24,7 +24,7 @@ const CardRequests = () => {
           {data.map((r) => (
             <div key={r.id} className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between shadow-card">
               <div>
-                <p className="font-medium">{r.cardType || "Card"} request</p>
+                <p className="font-medium">{r.cardType === 0 ? "Debit" : r.cardType === 1 ? "Credit" : "Card"} card request</p>
                 <p className="text-xs text-muted-foreground">{formatDate(r.createdAt)}</p>
               </div>
               <StatusBadge status={r.status === 0 ? "Pending" : r.status === 1 ? "Approved" : "Rejected"} />

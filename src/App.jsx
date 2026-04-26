@@ -7,12 +7,14 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute, PublicOnlyRoute } from "@/components/ProtectedRoute";
 import { AdminRoute } from "@/components/AdminRoute";
 import { AppLayout } from "@/components/AppLayout";
+import { RoleHomeRedirect } from "@/components/RoleHomeRedirect";
 import "./App.css";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VerifyEmail from "./pages/VerifyEmail";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Accounts from "./pages/Accounts";
 import AccountDetail from "./pages/AccountDetail";
 import Transfer from "./pages/Transfer";
@@ -75,7 +77,9 @@ function App() {
                   </ProtectedRoute>
                 }
               >
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={<RoleHomeRedirect />} />
+              <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+                {/* <Route path="/" element={<Dashboard />} /> */}
                 <Route path="/accounts" element={<Accounts />} />
                 <Route path="/accounts/:id" element={<AccountDetail />} />
                 <Route path="/transfer" element={<Transfer />} />

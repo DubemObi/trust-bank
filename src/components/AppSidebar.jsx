@@ -55,12 +55,13 @@ export function AppSidebar() {
           )}
         </div>
 
-        <SidebarGroup>
-          {!collapsed && <SidebarGroupLabel>Menu</SidebarGroupLabel>}
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+        {!isAdmin && (
+          <SidebarGroup>
+            {!collapsed && <SidebarGroupLabel>Menu</SidebarGroupLabel>}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
@@ -76,7 +77,7 @@ export function AppSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup>)}
 
         {isAdmin && (
           <SidebarGroup>
@@ -88,6 +89,7 @@ export function AppSidebar() {
                     <SidebarMenuButton asChild>
                       <NavLink
                         to={item.url}
+                        end={item.url === "/admin"}
                         className="hover:bg-sidebar-accent rounded-xl"
                         activeClassName="bg-primary/15 text-foreground font-medium"
                       >

@@ -146,7 +146,7 @@ export const cardRequestsApi = {
   approve: (data) =>
     api.post('/api/CardRequest/approve', data).then((r) => r.data),
   reject: (data) => 
-    api.post('/api/CardRequest/reject', data).then((r) => r.data),
+    api.post('/api/CardRequest/approve', data).then((r) => r.data),
   remove: (id) => api.delete(`/api/CardRequest/${id}`).then((r) => r.data),
 }
 
@@ -170,7 +170,7 @@ export const loanRequestsApi = {
   approve: (data) => // Updated to match LoanApprovalDTO
     api.post('/api/LoanRequest/approve', data).then((r) => r.data),
   reject: (data) => // Implemented reject matching LoanApprovalDTO structure
-    api.post('/api/LoanRequest/reject', data).then((r) => r.data),
+    api.post('/api/LoanRequest/approve', data).then((r) => r.data),
   remove: (id) => api.delete(`/api/LoanRequest/${id}`).then((r) => r.data),
 };
 
