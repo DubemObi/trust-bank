@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import CardRequests from './CardRequests';
+import LoanRequests from './LoanRequests';
 import { expect, it, describe, vi, beforeEach } from 'vitest';
 import { useQuery } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
@@ -9,10 +9,10 @@ vi.mock('@tanstack/react-query', () => ({
   useQuery: vi.fn(),
 }));
 
-describe('CardRequests Page', () => {
+describe('LoanRequests Page', () => {
   const mockRequests = [
-    { id: '1', cardType: 0, status: 0, createdAt: new Date().toISOString() },
-    { id: '2', cardType: 1, status: 1, createdAt: new Date().toISOString() },
+    { id: '1', principalAmount: 5000, durationInMonths: 12, purpose: 'Car', status: 0, createdAt: new Date().toISOString() },
+    { id: '2', principalAmount: 10000, durationInMonths: 24, purpose: 'Home', status: 1, createdAt: new Date().toISOString() },
   ];
 
   beforeEach(() => {
@@ -20,23 +20,25 @@ describe('CardRequests Page', () => {
     useQuery.mockReturnValue({ data: mockRequests, isLoading: false });
   });
 
-  it('renders card requests correctly', () => {
+  it('renders loan requests correctly', () => {
     render(
       <BrowserRouter>
-        <CardRequests />
+        <LoanRequests />
       </BrowserRouter>
     );
-    expect(screen.getByText('Debit card request')).toBeInTheDocument();
-    expect(screen.getByText('Credit card request')).toBeInTheDocument();
+    // £5,000.00
+    expect(screen.getByText(/£5,000\.00/i)).toBeInTheDocument();
+    expect(screen.getByText(/Car/i)).toBeInTheDocument();
+    expect(screen.getByText(/£10,000\.00/i)).toBeInTheDocument();
   });
 
   it('shows empty state when no requests exist', () => {
     useQuery.mockReturnValue({ data: [], isLoading: false });
     render(
       <BrowserRouter>
-        <CardRequests />
+        <LoanRequests />
       </BrowserRouter>
     );
-    expect(screen.getByText(/No card requests/i)).toBeInTheDocument();
+    expect(screen.getByText(/No applications yet/i)).toBeInTheDocument();
   });
 });

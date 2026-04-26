@@ -88,14 +88,15 @@ const Register = () => {
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" value={form.password} onChange={(e) => update("password", e.target.value)} />
+          <Input id="password" type="password" data-testid="password-input" value={form.password} onChange={(e) => update("password", e.target.value)} />
           {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="confirmPassword">Confirm Password</Label>
-          <Input id="confirmPassword" type="password" value={form.confirmPassword} onChange={(e) => update("confirmPassword", e.target.value)} />
+          <Input id="confirmPassword" type="password" data-testid="confirm-password-input" value={form.confirmPassword} onChange={(e) => update("confirmPassword", e.target.value)} />
           {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword}</p>}
         </div>
+
         <Button type="submit" className="w-full h-11 rounded-xl font-semibold" disabled={loading}>
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create account"}
         </Button>

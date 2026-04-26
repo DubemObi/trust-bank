@@ -27,6 +27,7 @@ const items = [
 ];
 
 const adminItems = [
+  { title: "Dashboard", url: "/admin", icon: LayoutDashboard },
   { title: "Card Requests", url: "/admin/card-requests", icon: FileCheck2 },
   { title: "Loan Requests", url: "/admin/loan-requests", icon: BadgeCheck },
   { title: "Users", url: "/admin/users", icon: Users },

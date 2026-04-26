@@ -8,8 +8,8 @@ import { extractError } from "@/lib/api";
 const VerifyEmail = () => {
   const [params] = useSearchParams();
   const token = params.get("token");
-  const [state, setState] = useState<"loading" | "success" | "error">(token ? "loading" : "error");
-  const [message, setMessage] = useState<string>("");
+  const [state, setState] = useState(token ? "loading" : "error");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!token) {

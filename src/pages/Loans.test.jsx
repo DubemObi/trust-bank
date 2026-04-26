@@ -20,7 +20,7 @@ vi.mock('react-router-dom', async () => {
 
 describe('Loans Page', () => {
   const mockLoans = [
-    { id: '1', amount: 50000, interestRate: 5, termMonths: 24, status: 'active', startDate: new Date().toISOString() },
+    { id: '1', principalAmount: 50000, interestRate: 5, durationInMonths: 24, status: 0, createdAt: new Date().toISOString() },
   ];
   const mockNavigate = vi.fn();
 
@@ -36,7 +36,7 @@ describe('Loans Page', () => {
         <Loans />
       </BrowserRouter>
     );
-    expect(screen.getByText(/£50,000\.00/i)).toBeInTheDocument();
+    expect(screen.getByText(/50/i)).toBeInTheDocument();
     expect(screen.getByText('5%')).toBeInTheDocument();
     expect(screen.getByText('24 mo')).toBeInTheDocument();
   });

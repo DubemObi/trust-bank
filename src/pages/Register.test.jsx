@@ -45,7 +45,7 @@ describe('Register Page', () => {
     expect(screen.getByLabelText(/First name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Last name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Password$/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Create account/i })).toBeInTheDocument();
   });
 
@@ -61,7 +61,8 @@ describe('Register Page', () => {
 
     expect(await screen.findAllByText(/Required/i)).toHaveLength(2); // First name, Last name
     expect(await screen.findByText(/Invalid email/i)).toBeInTheDocument();
-    expect(await screen.findByText(/At least 8 characters/i)).toBeInTheDocument();
+    // Two password fields show the same error
+    expect(await screen.findAllByText(/At least 8 characters/i)).toHaveLength(2);
   });
 
   it('calls register and navigates on success', async () => {
@@ -77,7 +78,8 @@ describe('Register Page', () => {
     await user.type(screen.getByLabelText(/First name/i), 'John');
     await user.type(screen.getByLabelText(/Last name/i), 'Doe');
     await user.type(screen.getByLabelText(/Email/i), 'john@example.com');
-    await user.type(screen.getByLabelText(/Password/i), 'password123');
+    await user.type(screen.getByTestId('password-input'), 'password123');
+    await user.type(screen.getByTestId('confirm-password-input'), 'password123');
     await user.click(screen.getByRole('button', { name: /Create account/i }));
 
     expect(mockRegister).toHaveBeenCalled();
@@ -100,7 +102,8 @@ describe('Register Page', () => {
     await user.type(screen.getByLabelText(/First name/i), 'John');
     await user.type(screen.getByLabelText(/Last name/i), 'Doe');
     await user.type(screen.getByLabelText(/Email/i), 'john@example.com');
-    await user.type(screen.getByLabelText(/Password/i), 'password123');
+    await user.type(screen.getByTestId('password-input'), 'password123');
+    await user.type(screen.getByTestId('confirm-password-input'), 'password123');
     await user.click(screen.getByRole('button', { name: /Create account/i }));
 
     expect(toast.error).toHaveBeenCalledWith(expect.stringContaining("Registration failed"));
